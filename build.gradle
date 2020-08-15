@@ -1,0 +1,38 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.0-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.dmolnar'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'mysql:mysql-connector-java'
+	implementation 'javax.validation:validation-api'
+	implementation 'org.projectlombok:lombok'
+	implementation 'javax.xml.bind:jaxb-api'
+	implementation 'org.springframework.data:spring-data-commons'
+	implementation 'com.zsoltfabok:sqlite-dialect:1.0'
+	implementation 'org.springframework:spring-web'
+	implementation 'io.springfox:springfox-swagger2:2.9.2'
+	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.3.RELEASE'
+	implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'commons-codec:commons-codec:1.9'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
