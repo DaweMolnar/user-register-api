@@ -25,15 +25,15 @@ public class UserAPI {
     }
 
     @PostMapping
-    public User create(@RequestBody User user) {
+    public User create(@RequestBody UserDTO user) {
         user.password = PasswordHandler.convertPassword(user.password);
-        return userService.save(user);
+        return userService.save(user.toEntity());
     }
 
     @PostMapping("/login")
-    public Boolean login(@RequestBody User user) {
-        User userInDb = userService.findByUserName(user.userName).get();
-        return userInDb.password.equals(PasswordHandler.convertPassword(user.password));
+    public Boolean login(@RequestParam String userName, @RequestParam String password) {
+        User userInDb = userService.findByUserName(userName).get();
+        return userInDb.password.equals(PasswordHandler.convertPassword(password));
     }
 
     @GetMapping("/{id}")
@@ -48,14 +48,14 @@ public class UserAPI {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody User user) {
+    public ResponseEntity<User> update(@PathVariable Long id, @Valid @RequestBody UserDTO user) {
         System.err.println(userService.findById(id).get().userName);
         if (!userService.findById(id).isPresent()) {
             //log.error("Id " + id + " is not existed");
             ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(userService.save(user));
+        return ResponseEntity.ok(userService.save(user.toEntity()));
     }
 
     @DeleteMapping("/{id}")
